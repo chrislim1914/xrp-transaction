@@ -19,7 +19,7 @@ import (
 )
 
 func Migration(config *bootstrap.Config) error {
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable ", config.DBHost, config.DBUserName, config.DBUserPassword, config.DBName, config.DBPort)
+	dsn := connectionStr(config)
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		fmt.Println(err)

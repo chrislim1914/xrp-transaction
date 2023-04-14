@@ -13,7 +13,7 @@ var DB *gorm.DB
 
 func ConnectDB(config *bootstrap.Config) (*gorm.DB, error) {
 	var err error
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable ", config.DBHost, config.DBUserName, config.DBUserPassword, config.DBName, config.DBPort)
+	dsn := connectionStr(config)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -21,4 +21,9 @@ func ConnectDB(config *bootstrap.Config) (*gorm.DB, error) {
 		return DB, err
 	}
 	return DB, nil
+}
+
+func connectionStr(config *bootstrap.Config) string {
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable ", config.DBHost, config.DBUserName, config.DBUserPassword, config.DBName, config.DBPort)
+	return dsn
 }
