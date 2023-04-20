@@ -11,8 +11,10 @@ type Config struct {
 	DBName         string `mapstructure:"POSTGRES_DB"`
 	DBPort         string `mapstructure:"POSTGRES_PORT"`
 	ServerPort     string `mapstructure:"PORT"`
-
-	ClientOrigin string `mapstructure:"CLIENT_ORIGIN"`
+	ClientOrigin   string `mapstructure:"CLIENT_ORIGIN"`
+	RedisAddress   string `mapstructure:"REDIS_ADDRESS"`
+	RedisPassword  string `mapstructure:"REDIS_PASSWORD"`
+	RedisDB        int    `mapstructure:"REDIS_DB"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
@@ -26,7 +28,6 @@ func LoadConfig(path string) (config Config, err error) {
 	if err != nil {
 		return
 	}
-
 	err = viper.Unmarshal(&config)
 	return
 }

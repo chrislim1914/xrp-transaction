@@ -13,6 +13,7 @@ import (
 type AccountController interface {
 	GetAccount(request AccountRequest) (models.Accounts, int, error)
 	NewAccount(request AccountRequest) (response CreateAccountResponse, sc int, err error)
+	GetAPIData(key string) string
 }
 
 type AccountRequest struct {

@@ -26,7 +26,9 @@ func Routes() *mux.Router {
 
 	// wallets
 	// TODO: need auth middleware to get requestee indentity
-	s.HandleFunc("/wallets/create", handler.NewInternalWallet).Methods("POST")
+	w := r.PathPrefix("/api/v1/wallets").Subrouter()
+	w.HandleFunc("/create", handler.NewInternalWallet).Methods("POST")
+	w.Use(cmw.AuthMiddleware)
 
 	return r
 }

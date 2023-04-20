@@ -17,6 +17,14 @@ func (a *AccountControllerService) GetAccount(request AccountRequest) (models.Ac
 	return *a.Account, http.StatusOK, nil
 }
 
+func (a *AccountControllerService) GetAPIData(key string) string {
+	if err := a.DB.Where("api_key = ?", key).First(&a.Account).Error; err != nil {
+		return ""
+	}
+
+	return a.Account.ApiSecret
+}
+
 func (a *AccountControllerService) NewAccount(request AccountRequest) (response CreateAccountResponse, sc int, err error) {
 	// validate email request
 	checkemail, err := a.verifyEmail(request.Email)
